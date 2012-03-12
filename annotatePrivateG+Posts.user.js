@@ -27,6 +27,15 @@ function privatizeGplus() {
 jQuery('div[id^=update-]').one("mouseover", function(e) {
 
     var post = e.target;
+    var audience = jQuery('span[title="Sharing details"]', post);
+
+    // If the post was shared with you, one other person, and also made Public,
+    // it still appears that there are only two users in the audience data.
+    // Return if the share is Public, rather than incorrectly marking it as
+    // Private.
+    if (audience.text() === "Public")
+        return;
+
     var postId = post.id.match(/update-(.+)/)[1];
     var req = jQuery.ajax("https://plus.google.com/u/0/_/stream/getaudience/", {
         dataType: "text",
@@ -51,16 +60,10 @@ jQuery('div[id^=update-]').one("mouseover", function(e) {
         var userData = JSON.parse(text)[0][2];
 
         // Only care if it was shared between 2 users
-        // XXX:  this also passes if the post was Public
+        // XXX:  this also passes if the post was Public and shared only with
+        // one other person.
         if (userData.length == 2)
-        {
-            //var uids = jQuery.map(userData, function (post, i) {
-            //    return post[1];
-            //})
-
-            var audience = jQuery('span[title="Sharing details"]', post);
             audience[0].innerText = "Private";
-        }
     });
 
 }); // jQuery.one
