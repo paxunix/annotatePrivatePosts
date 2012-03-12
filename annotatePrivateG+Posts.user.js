@@ -7,7 +7,8 @@
 // ==/UserScript==
 
 
-jQuery('div[id^=update-]').one("hover", function(e) {
+
+jQuery('div[id^=update-]').one("mouseover", function(e) {
 
     var post = e.target;
     var postId = post.id.match(/update-(.+)/)[1];
