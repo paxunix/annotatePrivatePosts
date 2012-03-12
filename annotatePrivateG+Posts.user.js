@@ -6,6 +6,7 @@
 // @version         0.1
 // ==/UserScript==
 
+function privatizeGplus() {
 
 
 jQuery('div[id^=update-]').one("mouseover", function(e) {
@@ -48,3 +49,13 @@ jQuery('div[id^=update-]').one("mouseover", function(e) {
     });
 
 }); // jQuery.one
+
+
+};  // privatizeGplus
+
+
+// Load jQuery (yeah, I'm lazy) and then inject the go function.
+var script = document.createElement("script");
+script.src = "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js";
+script.onload = privatizeGplus;
+document.body.appendChild(script);
