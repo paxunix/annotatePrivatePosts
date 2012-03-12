@@ -6,6 +6,21 @@
 // @version         0.1
 // ==/UserScript==
 
+function jqueryize(fn)
+{
+    var script = document.createElement("script");
+    //script.src = "https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js";
+    script.src = "https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js";
+    script.onload = function() {
+        var script = document.createElement("script");
+        script.textContent = "(" + fn.toString() + ")();";
+        document.body.appendChild(script);
+    };
+
+    document.body.appendChild(script);
+}   // jqueryize
+
+
 function privatizeGplus() {
 
 
@@ -54,8 +69,4 @@ jQuery('div[id^=update-]').one("mouseover", function(e) {
 };  // privatizeGplus
 
 
-// Load jQuery (yeah, I'm lazy) and then inject the go function.
-var script = document.createElement("script");
-script.src = "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js";
-script.onload = privatizeGplus;
-document.body.appendChild(script);
+jqueryize(privatizeGplus);
