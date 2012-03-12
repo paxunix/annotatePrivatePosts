@@ -9,8 +9,7 @@
 function jqueryize(fn)
 {
     var script = document.createElement("script");
-    //script.src = "https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js";
-    script.src = "https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js";
+    script.src = "https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js";
     script.onload = function() {
         var script = document.createElement("script");
         script.textContent = "(" + fn.toString() + ")();";
