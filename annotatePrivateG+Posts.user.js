@@ -7,9 +7,9 @@
 // ==/UserScript==
 
 
-var postDivs = jQuery('div[id^=update-]');
-jQuery.each(postDivs, function (i, post) {
+jQuery('div[id^=update-]').one("hover", function(e) {
 
+    var post = e.target;
     var postId = post.id.match(/update-(.+)/)[1];
     var req = jQuery.ajax("https://plus.google.com/u/0/_/stream/getaudience/", {
         dataType: "text",
@@ -34,6 +34,7 @@ jQuery.each(postDivs, function (i, post) {
         var userData = JSON.parse(text)[0][2];
 
         // Only care if it was shared between 2 users
+        // XXX:  this also passes if the post was Public
         if (userData.length == 2)
         {
             //var uids = jQuery.map(userData, function (post, i) {
@@ -42,8 +43,7 @@ jQuery.each(postDivs, function (i, post) {
 
             var audience = jQuery('span[title="Sharing details"]', post);
             audience[0].innerText = "Private";
-
-            // XXX: would be nice to show indication of whom it was shared with
         }
     });
-});
+
+}); // jQuery.one
