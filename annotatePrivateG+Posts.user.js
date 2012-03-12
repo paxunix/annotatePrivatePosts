@@ -2,7 +2,7 @@
 // @name            Mark 2-person posts as "Private"
 // @namespace       halpenny
 // @description     If a Google+ post is shared with you and one other person, change the "Limited" audience to "Private".
-// @include         http*://plus.google.com/*
+// @include         https://plus.google.com/*
 // @version         0.1
 // ==/UserScript==
 
