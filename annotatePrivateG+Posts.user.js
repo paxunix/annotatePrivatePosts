@@ -23,9 +23,22 @@ function jqueryize(fn)
 function privatizeGplus() {
 
 
-jQuery('div[id^=update-]').one("mouseover", function(e) {
+jQuery('div#contentPane').on("mouseenter", 'div[id^=update-]', function(e) {
 
     var post = e.target;
+
+    // Manually track if we've checked this element before.  Would be nice
+    // to use one() instead of on() but that means it only fires once for
+    // any of the parent's delegates, not once per delegate.
+    if (!jQuery.data(post, "annotatePrivG_done"))
+    {
+        jQuery.data(post, "annotatePrivG_done", true);
+    }
+    else
+    {
+        return;
+    }
+
     var audience = jQuery('span[title="Sharing details"]', post);
 
     // If the post was shared with you, one other person, and also made Public,
