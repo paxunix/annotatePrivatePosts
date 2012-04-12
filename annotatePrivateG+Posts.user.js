@@ -6,21 +6,24 @@
 // @version         0.1
 // ==/UserScript==
 
-function jqueryize(fn)
+function jqueryize(fn, jQueryVersion)
 {
     var script = document.createElement("script");
-    script.src = "https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js";
+    script.src = "https://ajax.googleapis.com/ajax/libs/jquery/" +
+        (jQueryVersion || "1") + "/jquery.min.js";
     script.onload = function() {
-        var script = document.createElement("script");
-        script.textContent = "(" + fn.toString() + ")();";
-        document.body.appendChild(script);
+        var fnScript = document.createElement("script");
+        fnScript.textContent = "(" + fn.toString() +
+            ")(jQuery.noConflict(true));";
+
+        document.body.appendChild(fnScript);
     };
 
     document.body.appendChild(script);
 }   // jqueryize
 
 
-function privatizeGplus() {
+function privatizeGplus(jQuery) {
 
 
 jQuery('div#contentPane').on("mouseenter", 'div[id^=update-]', function(e) {
