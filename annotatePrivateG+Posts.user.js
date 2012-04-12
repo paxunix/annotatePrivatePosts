@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Mark 2-person posts on Google+ as "Private"
 // @namespace       halpenny
-// @description     If a Google+ post is shared with you and one other person, change the "Limited" audience text to "Private".  The audience popup will still work as before.  This script can be easily broken whenever Google updated Google+.  Caveat emptor.
+// @description     If a Google+ post is shared with you and one other person, change the "Limited" audience text to "Private".  The audience popup will still work as before.  This script can be easily broken whenever Google updates Google+.  Caveat emptor.
 // @include         https://plus.google.com/*
 // @version         0.1
 // ==/UserScript==
