@@ -28,7 +28,7 @@ function privatizeGplus(jQuery) {
 
 jQuery('div#contentPane').on("mouseenter", 'div[id^=update-]', function(e) {
 
-    var post = e.target;
+    var post = this;
 
     // Manually track if we've checked this element before.  Would be nice
     // to use one() instead of on() but that means it only fires once for
