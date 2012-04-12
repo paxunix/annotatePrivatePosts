@@ -1,0 +1,9 @@
+Mark 2-person posts on Google+ as "Private"
+
+This Greasemonkey script changes the audience text (that bit at the top of
+each post that says "Limited" or "Public") to instead say "Private" if that
+post has been shared only with two people (i.e. you and another user,
+otherwise you wouldn't be able to see the post in the first place).
+
+Caveat emptor:  whenever Google updates G+ and changes the layout, be
+prepared for this script to break.
