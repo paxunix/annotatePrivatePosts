@@ -3,7 +3,7 @@
 // @namespace       halpenny
 // @description     If a Google+ post is shared with you and one other person, change the "Limited" audience text to "Private".  The audience popup will still work as before.  This script can be easily broken whenever Google updates Google+.  Caveat emptor.
 // @include         https://plus.google.com/*
-// @version         0.2.0
+// @version         0.3.0
 // ==/UserScript==
 
 function jqueryize(fn, jQueryVersion)
@@ -81,8 +81,14 @@ jQuery(document).on("mouseenter", 'div[id^=update-]', function(evt) {
         else
             audience[0].innerText = prevText;
     }).fail(function (text) {
-        // For now, just log a message saying there was a problem.
-        console.log("Failed request to Google+ for post " + postId);
+        jQuery('<span id="errtext">Failed checking audience for this post</span>').
+            css({ color: "red",
+                "background-color": "yellow",
+                position: "absolute",
+                display: "none" }).
+            insertBefore(jQuery(audience).closest("div")).
+            fadeIn(500).
+            fadeOut(4000, function() { this.remove() });
 
         audience[0].innerText = prevText;
     });
