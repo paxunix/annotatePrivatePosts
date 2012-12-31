@@ -3,7 +3,7 @@
 // @namespace       halpenny
 // @description     If a Google+ post is shared with you and one other person, change the "Limited" audience text to "Private".  The audience popup will still work as before.  This script can be easily broken whenever Google updates Google+.  Caveat emptor.
 // @include         https://plus.google.com/*
-// @version         0.1
+// @version         0.2.0
 // ==/UserScript==
 
 function jqueryize(fn, jQueryVersion)
@@ -25,10 +25,8 @@ function jqueryize(fn, jQueryVersion)
 
 function privatizeGplus(jQuery) {
 
-
-jQuery('div#contentPane').on("mouseenter", 'div[id^=update-]', function(e) {
-
-    var post = this;
+jQuery(document).on("mouseenter", 'div[id^=update-]', function(evt) {
+    var post = evt.currentTarget;
 
     // Manually track if we've checked this element before.  Would be nice
     // to use one() instead of on() but that means it only fires once for
