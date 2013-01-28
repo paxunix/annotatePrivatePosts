@@ -3,7 +3,7 @@
 // @namespace       halpenny
 // @description     If a Google+ post is shared with you and one other person, change the "Limited" audience text to "Private".  The audience popup will still work as before.  This script can be easily broken whenever Google updates Google+.  Caveat emptor.
 // @include         https://plus.google.com/*
-// @version         0.3.0
+// @version         1.0.0
 // ==/UserScript==
 
 function jqueryize(fn, jQueryVersion)
