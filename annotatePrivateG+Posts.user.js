@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name            Google+:  mark "Private" posts
 // @namespace       halpenny
-// @description     If a Google+ post is shared with you and one other person, change the "Limited" audience text to "Shared With Only One Person".  The audience popup will still work as before.  This script can be easily broken whenever Google updates Google+.  Caveat emptor.
+// @description     If a Google+ post is shared privately, change the audience text to indicate sharing with one person or many.  The audience popup will still work as before.  This script can be easily broken whenever Google updates Google+.  Caveat emptor.
 // @include         https://plus.google.com/*
-// @version         1.0.2
+// @version         1.0.3
 // ==/UserScript==
 
 function jqueryize(fn, jQueryVersion)
@@ -47,7 +47,7 @@ jQuery(document).on("mouseenter", 'div[id^=update-]', function(evt) {
     // Return if the share is Public, rather than incorrectly marking it as
     // Private.
     var prevText = audience.text();
-    if (prevText === "Public")
+    if (prevText !== "Shared privately")
         return;
 
     // So the user has some indication that we're doing something, change
@@ -75,11 +75,12 @@ jQuery(document).on("mouseenter", 'div[id^=update-]', function(evt) {
 
         var userData = JSON.parse(text)[0][2];
 
-        // Only care if it was shared between 2 users
+        // We already know it's been privately shared, so we
+        // indicate if it's between only 2 people or more than 2.
         if (userData.length == 2)
             audience[0].innerText = "Shared With Only One Person";
         else
-            audience[0].innerText = prevText;
+            audience[0].innerText = "Shared Privately With Multiple People";
     }).fail(function (text) {
         jQuery('<span id="errtext">Failed checking audience for this post</span>').
             css({ color: "red",
