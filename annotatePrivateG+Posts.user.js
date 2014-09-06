@@ -55,33 +55,38 @@ jQuery(document).on("mouseenter", 'div[id^=update-]', function(evt) {
     audience.text("Checking...");
 
     var postId = post.id.match(/update-(.+)/)[1];
-    jQuery.ajax("https://plus.google.com/u/0/_/stream/getaudience/", {
+    jQuery.ajax("https://plus.google.com/_/stream/getaudience/", {
         dataType: "text",
         data: {
             id: postId,
-            buzz: "false",
+            buzz: true,
+            maxResults: 22,
+            "soc-app": 1,
+            cid: 0,
+            "soc-platform": 1,
         }
-    }).done(function (text) {
+    }).then(function onSuccess(text) {
 
         // The response isn't true JSON.  Diddle it so we can get it into JSON
         // form and pull out the data we need.
-        text = text.replace(/^[\s\S]*?(?=\[)/m, "");
-        var oldtext;
-
-        do {
-            oldtext = text;
-            text = text.replace(/,,/g, ',"",');
-        } while (oldtext !== text);
-
+        text = text.replace(/^.*?'/m, "").replace(/,+/g, ",");
         var userData = JSON.parse(text)[0][2];
 
         // We already know it's been privately shared, so we
         // indicate if it's between only 2 people or more than 2.
         if (userData.length == 2)
-            audience[0].innerText = "Shared With Only One Person";
+        {
+            var myId = jQuery("a[aria-label=Profile]").
+                prop("href").replace(/.*\//, "");
+            var otherUser = userData.filter(function(el) {
+                return el[1] !== myId
+            })[0];
+
+            audience[0].innerText = "Shared Only With " + otherUser[0];
+        }
         else
             audience[0].innerText = "Shared Privately With Multiple People";
-    }).fail(function (text) {
+    }).fail(function onFail(text) {
         jQuery('<span id="errtext">Failed checking audience for this post</span>').
             css({ color: "red",
                 "background-color": "yellow",
