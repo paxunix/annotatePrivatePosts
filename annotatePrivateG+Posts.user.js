@@ -3,7 +3,7 @@
 // @namespace       halpenny
 // @description     If a Google+ post is shared privately, change the audience text to indicate sharing with one person or many.  The audience popup will still work as before.  This script can be easily broken whenever Google updates Google+.  Caveat emptor.
 // @include         https://plus.google.com/*
-// @version         1.0.3
+// @version         1.0.4
 // ==/UserScript==
 
 function jqueryize(fn, jQueryVersion)
