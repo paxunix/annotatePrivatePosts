@@ -3,7 +3,7 @@
 // @namespace       halpenny
 // @description     If a Google+ post is shared privately, change the audience text to indicate sharing with one person or many.  The audience popup will still work as before.  This script can be easily broken whenever Google updates Google+.  Caveat emptor.
 // @include         https://plus.google.com/*
-// @version         1.0.4
+// @version         1.0.5
 // ==/UserScript==
 
 function jqueryize(fn, jQueryVersion)
@@ -31,14 +31,8 @@ jQuery(document).on("mouseenter", 'div[id^=update-]', function(evt) {
     // Manually track if we've checked this element before.  Would be nice
     // to use one() instead of on() but that means it only fires once for
     // any of the parent's delegates, not once per delegate.
-    if (!jQuery.data(post, "annotatePrivG_done"))
-    {
-        jQuery.data(post, "annotatePrivG_done", true);
-    }
-    else
-    {
+    if (jQuery.data(post, "annotatePrivG_done"))
         return;
-    }
 
     var audience = jQuery('span[title="Sharing details"]', post);
 
@@ -86,6 +80,9 @@ jQuery(document).on("mouseenter", 'div[id^=update-]', function(evt) {
         }
         else
             audience[0].innerText = "Shared Privately With Multiple People";
+
+        // Item's audience has been looked up already
+        jQuery.data(post, "annotatePrivG_done", true);
     }).fail(function onFail(text) {
         jQuery('<span id="errtext">Failed checking audience for this post</span>').
             css({ color: "red",
