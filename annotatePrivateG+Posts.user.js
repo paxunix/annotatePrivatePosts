@@ -10,7 +10,7 @@ function jqueryize(fn, jQueryVersion)
 {
     var script = document.createElement("script");
     script.src = "https://ajax.googleapis.com/ajax/libs/jquery/" +
-        (jQueryVersion || "1") + "/jquery.min.js";
+        (jQueryVersion || "2.1.1") + "/jquery.min.js";
     script.onload = function() {
         var fnScript = document.createElement("script");
         fnScript.textContent = "(" + fn.toString() +
