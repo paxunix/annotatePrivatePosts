@@ -3,7 +3,7 @@
 // @namespace       halpenny
 // @description     If a Google+ post is shared privately, change the audience text to indicate sharing with one person or many.  The audience popup will still work as before.  This script can be easily broken whenever Google updates Google+.  Caveat emptor.
 // @include         https://plus.google.com/*
-// @version         1.0.5
+// @version         1.0.6
 // ==/UserScript==
 
 function jqueryize(fn, jQueryVersion)
@@ -70,13 +70,8 @@ jQuery(document).on("mouseenter", 'div[id^=update-]', function(evt) {
         // indicate if it's between only 2 people or more than 2.
         if (userData.length == 2)
         {
-            var myId = jQuery("a[aria-label=Profile]").
-                prop("href").replace(/.*\//, "");
-            var otherUser = userData.filter(function(el) {
-                return el[1] !== myId
-            })[0];
-
-            audience[0].innerText = "Shared Only With " + otherUser[0];
+            audience[0].innerText = "Shared Only Between " +
+                userData[1][0] + " and " + userData[0][0];
         }
         else
             audience[0].innerText = "Shared Privately With Multiple People";
